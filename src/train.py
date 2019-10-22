@@ -85,7 +85,7 @@ def train_phase_logistic_regression(X, Y, config):
             solver='lbfgs',
             penalty='l2',
             class_weight={0: 1, 1: 1},
-            max_iter=100
+            max_iter=1000
     )
     m = clf.fit(X, Y)
     m.predict = lambda X: m.predict_proba(X)[:, 1]
@@ -122,10 +122,7 @@ if __name__ == '__main__':
     elif args.feature_count == 18:
         iid = [F.index(f) for f in ['Temp', 'age', 'SBP', 'DBP', 'Breath', 'Pulse', 'GCS_Total', 'exam_WBC', 'exam_Plt', 'exam_Hb', 'sex', 'Cancer', 'Hypertension', 'Heart Disease', 'CVA', 'CKD', 'Severe Liver Disease', 'DM']]
     X = data['x'][:, iid]
-    v_mask = data['missing_mask']
     Y = data['y']
-    X = X[v_mask, :]
-    Y = Y[v_mask, :]
     # parse default model hyper-parameter
     model_type = args.model
     if model_type == 'NN':
