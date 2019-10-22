@@ -85,7 +85,7 @@ def train_phase_logistic_regression(X, Y, config):
             solver='lbfgs',
             penalty='l2',
             class_weight={0: 1, 1: 1},
-            max_iter=1000
+            max_iter=100
     )
     m = clf.fit(X, Y)
     m.predict = lambda X: m.predict_proba(X)[:, 1]
